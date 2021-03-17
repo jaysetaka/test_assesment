@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Add/Remove Input Fields Dynamically with jQuery</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style></style>
+  <body>
+    <div class="container">
+      <!-- begin -->
+      <form class="input_fields_wrap mt-3">
+        <div class="mb-3">
+          <input type="text" maxlength="40" class="form-control" />
+        </div>
+      </form>
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+          style="height: 100px"
+          maxlength="1000"
+        ></textarea>
+      </div>
+      <br />
+      <button class="btn btn-primary add_field_button">New Line</button>
+    </div>
+
+    <!-- end -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var max_fields = 10; //maximum input boxes allowed
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
+
+        var x = 1; //initlal text box count
+
+        $("input").keyup(function (e) {
+          e.preventDefault();
+          if (this.value.length == this.maxLength) {
+            $(wrapper).append(
+              '<div class="input-group mt-3"><button class="btn btn-outline-secondary remove_field" type="button" id="button-addon2">X</button><input type="text" maxlength="40" class="form-control nextInput" /></div>'
+            );
+            $(".nextInput").focus();
+          }
+        });
+
+        $(add_button).click(function (e) {
+          //on add input button click
+          e.preventDefault();
+          if (x < max_fields) {
+            //max input box allowed
+
+            //text box increment
+
+            $(wrapper).append(
+              '<div class="input-group mt-3"><button class="btn btn-outline-secondary remove_field" type="button" id="button-addon2">X</button><input type="text" maxlength="40" class="form-control" /></div>'
+            ); //add input box
+            $(".nextInput").focus();
+            x++;
+          }
+        });
+
+        $(wrapper).on("click", ".remove_field", function (e) {
+          //user click on remove text
+
+          e.preventDefault();
+          $(this).parent("div").remove();
+          x--;
+        });
+      });
+    </script>
+  </body>
+</html>
